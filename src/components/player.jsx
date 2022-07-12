@@ -1,8 +1,21 @@
-import React from "react";
+import React,{useRef} from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay, faBackward, faForward } from "@fortawesome/free-solid-svg-icons";
 
-const Player=()=>{
+const Player=({currentSong, isPlaying, setIsPlaying})=>{
+
+    const audioRef=useRef(null);
+
+    const onPlaySong=()=>{
+        if(isPlaying){
+            audioRef.current.pause();
+            setIsPlaying(!isPlaying);
+        } else{
+            audioRef.current.play();
+            setIsPlaying(!isPlaying);
+        }
+    };
+
     return(
         <div className="player">
             <div className="time-control">
@@ -12,9 +25,10 @@ const Player=()=>{
             </div>
             <div className="play-control">
                 <FontAwesomeIcon className="skip-back" size="2x" icon={faBackward}/>
-                <FontAwesomeIcon className="play" size="2x" icon={faPlay}/>
+                <FontAwesomeIcon onClick={onPlaySong} className="play" size="2x" icon={faPlay}/>
                 <FontAwesomeIcon className="skip-forward" size="2x" icon={faForward}/>
             </div>
+            <audio ref={audioRef} src={currentSong.audio}/>
         </div>
     )
 }
