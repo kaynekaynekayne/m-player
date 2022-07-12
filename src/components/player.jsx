@@ -6,7 +6,7 @@ const Player=({currentSong, isPlaying, setIsPlaying})=>{
 
     const audioRef=useRef(null);
 
-    const onPlaySong=()=>{
+    const onPlayClick=()=>{
         if(isPlaying){
             audioRef.current.pause();
             setIsPlaying(!isPlaying);
@@ -61,7 +61,7 @@ const Player=({currentSong, isPlaying, setIsPlaying})=>{
             <div className="play-control">
                 <FontAwesomeIcon className="skip-back" size="2x" icon={faBackward}/>
                 <FontAwesomeIcon 
-                    onClick={onPlaySong} 
+                    onClick={onPlayClick} 
                     className="play" 
                     size="2x" 
                     icon={isPlaying ? faPause : faPlay}

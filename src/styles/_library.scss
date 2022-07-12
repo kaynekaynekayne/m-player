@@ -1,0 +1,71 @@
+.library{
+    position: fixed;
+    top:0;
+    left:0;
+    width:20rem;
+    height:100%;
+    background-color: white;
+    box-shadow: 2px 2px 50px rgb(203, 203, 203);
+    overflow: scroll;
+    h2{
+        padding:2rem;
+    }
+    overflow-x:hidden;
+}
+
+.library-song{
+    display:flex;
+    align-items: center;
+    padding:1rem 1.5rem;
+    cursor:pointer;
+
+    img{
+        width:35%;
+        border-radius:50%;
+    }
+
+    &:hover{
+        background-image: linear-gradient(-20deg, #2b5876 0%, #4e4376 100%);
+        h3{
+            color:rgb(237, 237, 237);
+        }
+        h4{
+            color:rgb(219, 219, 219);
+        }
+        img{
+            animation:spin 2.5s linear infinite;
+        }
+    }
+}
+
+.song-description{
+    padding-left:1rem;
+    h3{
+        font-size:1rem;
+    }
+    h4{
+        font-size:0.7rem;
+    }
+}
+
+*::-webkit-scrollbar {
+    width:5px;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #ddfff5;
+}
+
+*::-webkit-scrollbar-track {
+    background-color: rgb(244, 240, 240);
+    box-shadow: inset 0px 0px 4px white;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform:rotate(360deg);
+    }
+}
