@@ -1,4 +1,4 @@
-import './App.css';
+import React from 'react';
 import Player from './components/player';
 import Song from './components/song';
 
