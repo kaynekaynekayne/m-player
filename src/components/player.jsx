@@ -2,7 +2,7 @@ import React,{useRef, useState, useEffect} from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay, faBackward, faForward, faPause } from "@fortawesome/free-solid-svg-icons";
 
-const Player=({currentSong, isPlaying, setIsPlaying})=>{
+const Player=({currentSong, setCurrentSong, isPlaying, setIsPlaying, songs})=>{
 
     const audioRef=useRef(null);
 
@@ -42,6 +42,17 @@ const Player=({currentSong, isPlaying, setIsPlaying})=>{
         })
     }
 
+    const trackHandler=(instruction)=>{
+        let currentIndex=songs.findIndex(song=>song.id===currentSong.id);
+        if(instruction==='skip-forward'){
+            setCurrentSong(songs[currentIndex+1 === songs.length ? 0 : currentIndex+1]);
+        } else if(instruction==='skip-back'){
+            setCurrentSong(songs[currentIndex === 0 ? songs.length-1 : currentIndex-1]);
+        }
+    }
+
+
+
     useEffect(()=>{
         if(isPlaying){
             audioRef.current.play();
@@ -62,14 +73,24 @@ const Player=({currentSong, isPlaying, setIsPlaying})=>{
                 <p>{formatTime(songInfo.duration)}</p>
             </div>
             <div className="play-control">
-                <FontAwesomeIcon className="skip-back" size="2x" icon={faBackward}/>
+                <FontAwesomeIcon
+                    onClick={()=>trackHandler("skip-back")} 
+                    className="skip-back" 
+                    size="2x" 
+                    icon={faBackward}
+                />
                 <FontAwesomeIcon 
                     onClick={onPlayClick} 
                     className="play" 
                     size="2x" 
                     icon={isPlaying ? faPause : faPlay}
                 />
-                <FontAwesomeIcon className="skip-forward" size="2x" icon={faForward}/>
+                <FontAwesomeIcon
+                    onClick={()=>trackHandler('skip-forward')} 
+                    className="skip-forward" 
+                    size="2x" 
+                    icon={faForward}
+                />
             </div>
             <audio
                 onTimeUpdate={timeUpdateHandler}
