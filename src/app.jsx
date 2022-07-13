@@ -12,7 +12,6 @@ function App() {
   const [currentSong, setCurrentSong]=useState(songs[0]);
   const [isPlaying, setIsPlaying]=useState(false);
 
-  console.log(currentSong);
   return (
     <div className="app">
       <Song currentSong={currentSong}/>
