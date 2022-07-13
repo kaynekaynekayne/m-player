@@ -7,10 +7,13 @@
     background-color: white;
     box-shadow: 2px 2px 50px rgb(203, 203, 203);
     overflow: scroll;
+    overflow-x:hidden;
+    transform: translateX(-100%);
+    transition:all 0.5s ease;
+    opacity:0;
     h2{
         padding:2rem;
     }
-    overflow-x:hidden;
 }
 
 .library-song{
@@ -25,6 +28,7 @@
     }
 
     &:hover{
+        
         background-image: linear-gradient(-20deg, #2b5876 0%, #4e4376 100%);
         h3{
             color:rgb(237, 237, 237);
@@ -48,12 +52,21 @@
     }
 }
 
+.selected{
+    background-image: linear-gradient(-225deg, #DFFFCD 0%, #90F9C4 48%, #39F3BB 100%);
+}
+
+.open-library{
+    transform: translateX(0%);
+    opacity:1;
+}
+
 *::-webkit-scrollbar {
     width:5px;
 }
 
 *::-webkit-scrollbar-thumb {
-    background-color: #ddfff5;
+    background:#ddfff5;
 }
 
 *::-webkit-scrollbar-track {
