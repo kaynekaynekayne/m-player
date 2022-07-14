@@ -19,7 +19,16 @@ const Player=({currentSong, setCurrentSong, isPlaying, setIsPlaying, songs})=>{
             currentTime:current,
             duration:duration || 0,
         })
+        //얘
+        // autoSkipHandler(current,duration)
     };
+
+    const autoSkipHandler=(current,duration)=>{
+        if(current===duration){
+            let currentIndex=songs.findIndex(song=>song.id===currentSong.id);
+            setCurrentSong(songs[currentIndex+1 === songs.length ? 0 : currentIndex+1]);
+        }
+    }
 
     const streamPercent=(songInfo.currentTime/songInfo.duration)*100;
 
@@ -35,12 +44,12 @@ const Player=({currentSong, setCurrentSong, isPlaying, setIsPlaying, songs})=>{
         })
     }
 
-    const trackHandler=(instruction)=>{
+    const trackHandler=async(instruction)=>{
         let currentIndex=songs.findIndex(song=>song.id===currentSong.id);
         if(instruction==='skip-forward'){
-            setCurrentSong(songs[currentIndex+1 === songs.length ? 0 : currentIndex+1]);
+            await setCurrentSong(songs[currentIndex+1 === songs.length ? 0 : currentIndex+1]);
         } else if(instruction==='skip-back'){
-            setCurrentSong(songs[currentIndex === 0 ? songs.length-1 : currentIndex-1]);
+            await setCurrentSong(songs[currentIndex === 0 ? songs.length-1 : currentIndex-1]);
         }
     }
 
@@ -48,17 +57,16 @@ const Player=({currentSong, setCurrentSong, isPlaying, setIsPlaying, songs})=>{
         if(isPlaying){
             audioRef.current.pause();
         } else{
-            audioRef.current.play();
+            onPlaySong();
         }
         setIsPlaying(prev=>!prev);
     };
 
+    const onPlaySong=async()=>await audioRef.current.play();
+
     useEffect(()=>{
         if(isPlaying){
-            const audioPromise=audioRef.current[isPlaying ? 'play' : 'pause']();
-            if(audioPromise!==undefined){
-                audioPromise.catch(console.info);
-            }
+            onPlaySong();
         }
     },[currentSong])
 
