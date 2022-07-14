@@ -21,6 +21,8 @@ const Player=({currentSong, setCurrentSong, isPlaying, setIsPlaying, songs})=>{
         })
     };
 
+    const streamPercent=(songInfo.currentTime/songInfo.duration)*100;
+
     const formatTime=(duration)=>{
         return `${Math.floor(duration/60)}:${(Math.floor(duration%60)).toString().padStart(2,"0")}`
     };
@@ -43,12 +45,12 @@ const Player=({currentSong, setCurrentSong, isPlaying, setIsPlaying, songs})=>{
     }
 
     const onPlayClick=()=>{
-        setIsPlaying(prev=>!prev);
         if(isPlaying){
             audioRef.current.pause();
         } else{
             audioRef.current.play();
         }
+        setIsPlaying(prev=>!prev);
     };
 
     useEffect(()=>{
@@ -63,13 +65,16 @@ const Player=({currentSong, setCurrentSong, isPlaying, setIsPlaying, songs})=>{
     return(
         <div className="player">
             <div className="time-control">
-                <input
-                    min={0} 
-                    max={songInfo.duration || 0}
-                    value={songInfo.currentTime} 
-                    onChange={streamHandler}
-                    type="range"
-                />
+                <div className="track" style={{background:`linear-gradient(to right, ${currentSong.color[0]},${currentSong.color[1]})`}}>
+                    <input
+                        min={0} 
+                        max={songInfo.duration || 0}
+                        value={songInfo.currentTime} 
+                        onChange={streamHandler}
+                        type="range"
+                    />
+                    <div className="animate-track" style={{transform:`translateX(${streamPercent}%)`}}></div>
+                </div>
                 <div className="time-stream">
                     <p>{formatTime(songInfo.currentTime)}</p>
                     <p>{formatTime(songInfo.duration)}</p>
