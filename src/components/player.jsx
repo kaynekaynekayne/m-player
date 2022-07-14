@@ -20,7 +20,6 @@ const Player=({currentSong, setCurrentSong, isPlaying, setIsPlaying, songs})=>{
         })
         if(current===duration){
             let currentIndex=songs.findIndex(song=>song.id===currentSong.id);
-            setSongInfo({currentTime:0, duration:0})
             setCurrentSong(songs[currentIndex+1 === songs.length ? 0 : currentIndex+1]);
         }
     };
@@ -59,18 +58,13 @@ const Player=({currentSong, setCurrentSong, isPlaying, setIsPlaying, songs})=>{
     const onPlaySong=async()=>await audioRef.current.play();
 
     useEffect(()=>{
-        console.log("song change")
-        //노래가 바뀌면 percent가 0이 되어야 함
         if(isPlaying){
             onPlaySong();
-            console.log("new song playing")
         }
     },[currentSong]);
 
     const streamPercent=()=>{
-        const a=(songInfo.currentTime / songInfo.duration) * 100;
-        console.log(`stream percent:${a}`)
-        return a;
+        return (songInfo.currentTime / songInfo.duration) * 100 || 0;
     };
 
     return(
