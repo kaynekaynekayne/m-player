@@ -11,41 +11,34 @@ const Player=({currentSong, setCurrentSong, isPlaying, setIsPlaying, songs})=>{
         duration:0,
     });
 
-    const timeUpdateHandler=(e)=>{
-        const current=e.target.currentTime;
-        const duration=e.target.duration;
+    const timeUpdateHandler=()=>{
+        const current=audioRef.current.currentTime;
+        const duration=audioRef.current.duration;
         setSongInfo({
-            ...songInfo,
             currentTime:current,
             duration:duration || 0,
         })
-        
-        //얘
-        autoSkipHandler(current,duration)
-    };
-
-    const autoSkipHandler=(current,duration)=>{
         if(current===duration){
             let currentIndex=songs.findIndex(song=>song.id===currentSong.id);
+            setSongInfo({currentTime:0, duration:0})
             setCurrentSong(songs[currentIndex+1 === songs.length ? 0 : currentIndex+1]);
         }
-    }
-
-    const streamPercent=()=>(songInfo.currentTime/songInfo.duration)*100;
-
-    const formatTime=(duration)=>{
-        return `${Math.floor(duration/60)}:${(Math.floor(duration%60)).toString().padStart(2,"0")}`
     };
 
     const streamHandler=(e)=>{
         audioRef.current.currentTime=e.target.value;
         setSongInfo({
             ...songInfo, 
-            currentTime:e.target.value
+            currentTime:e.target.value,
         })
-    }
+    };
+    
+    const formatTime=(duration)=>{
+        return `${Math.floor(duration/60)}:${(Math.floor(duration%60)).toString().padStart(2,"0")}`
+    };
 
-    const trackHandler=async(instruction)=>{
+
+    const trackBtnHandler=async(instruction)=>{
         let currentIndex=songs.findIndex(song=>song.id===currentSong.id);
         if(instruction==='skip-forward'){
             await setCurrentSong(songs[currentIndex+1 === songs.length ? 0 : currentIndex+1]);
@@ -66,10 +59,19 @@ const Player=({currentSong, setCurrentSong, isPlaying, setIsPlaying, songs})=>{
     const onPlaySong=async()=>await audioRef.current.play();
 
     useEffect(()=>{
+        console.log("song change")
+        //노래가 바뀌면 percent가 0이 되어야 함
         if(isPlaying){
             onPlaySong();
+            console.log("new song playing")
         }
-    },[currentSong])
+    },[currentSong]);
+
+    const streamPercent=()=>{
+        const a=(songInfo.currentTime / songInfo.duration) * 100;
+        console.log(`stream percent:${a}`)
+        return a;
+    };
 
     return(
         <section className="player">
@@ -93,7 +95,7 @@ const Player=({currentSong, setCurrentSong, isPlaying, setIsPlaying, songs})=>{
             </div>
             <div className="play-control">
                 <FontAwesomeIcon
-                    onClick={()=>trackHandler("skip-back")} 
+                    onClick={()=>trackBtnHandler("skip-back")} 
                     className="skip-back" 
                     size="2x" 
                     icon={faBackward}
@@ -105,7 +107,7 @@ const Player=({currentSong, setCurrentSong, isPlaying, setIsPlaying, songs})=>{
                     icon={isPlaying ? faPause : faPlay}
                 />
                 <FontAwesomeIcon
-                    onClick={()=>trackHandler('skip-forward')} 
+                    onClick={()=>trackBtnHandler('skip-forward')} 
                     className="skip-forward" 
                     size="2x" 
                     icon={faForward}
