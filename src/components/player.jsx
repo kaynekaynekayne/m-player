@@ -19,8 +19,9 @@ const Player=({currentSong, setCurrentSong, isPlaying, setIsPlaying, songs})=>{
             currentTime:current,
             duration:duration || 0,
         })
+        
         //얘
-        // autoSkipHandler(current,duration)
+        autoSkipHandler(current,duration)
     };
 
     const autoSkipHandler=(current,duration)=>{
@@ -30,7 +31,7 @@ const Player=({currentSong, setCurrentSong, isPlaying, setIsPlaying, songs})=>{
         }
     }
 
-    const streamPercent=(songInfo.currentTime/songInfo.duration)*100;
+    const streamPercent=()=>(songInfo.currentTime/songInfo.duration)*100;
 
     const formatTime=(duration)=>{
         return `${Math.floor(duration/60)}:${(Math.floor(duration%60)).toString().padStart(2,"0")}`
@@ -71,7 +72,7 @@ const Player=({currentSong, setCurrentSong, isPlaying, setIsPlaying, songs})=>{
     },[currentSong])
 
     return(
-        <div className="player">
+        <section className="player">
             <div className="time-control">
                 <div className="track" style={{background:`linear-gradient(to right, ${currentSong.color[0]},${currentSong.color[1]})`}}>
                     <input
@@ -81,7 +82,9 @@ const Player=({currentSong, setCurrentSong, isPlaying, setIsPlaying, songs})=>{
                         onChange={streamHandler}
                         type="range"
                     />
-                    <div className="animate-track" style={{transform:`translateX(${streamPercent}%)`}}></div>
+                    <div 
+                    className="animate-track" 
+                    style={{transform:`translateX(${streamPercent()}%)`}}></div>
                 </div>
                 <div className="time-stream">
                     <p>{formatTime(songInfo.currentTime)}</p>
@@ -114,7 +117,7 @@ const Player=({currentSong, setCurrentSong, isPlaying, setIsPlaying, songs})=>{
                 ref={audioRef} 
                 src={currentSong.audio}
             />
-        </div>
+        </section>
     )
 }
 

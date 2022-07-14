@@ -4,8 +4,8 @@ import LibrarySong from "./librarySong";
 const Library = ({songs, setCurrentSong, currentSong, openLibrary}) =>{
     
     return(
-        <div className={`library ${openLibrary ? "open-library" : ""}`}>
-            <div className="library-songs">
+        <section className={`library ${openLibrary ? "open-library" : ""}`}>
+            <ul className="library-songs">
                 {songs.map(song=>
                     <LibrarySong
                         key={song.id}
@@ -14,8 +14,8 @@ const Library = ({songs, setCurrentSong, currentSong, openLibrary}) =>{
                         setCurrentSong={setCurrentSong}
                     />
                 )}
-            </div>
-        </div>
+            </ul>
+        </section>
     )
 };
 

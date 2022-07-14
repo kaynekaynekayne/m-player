@@ -7,7 +7,7 @@ const LibrarySong=({song, setCurrentSong, currentSong})=>{
     }
 
     return(
-        <div 
+        <li 
             onClick={onSongClick} 
             className={`library-song ${song.id===currentSong.id ? "selected" : ""}`}>
             <img src={song.cover} alt="cover"></img>
@@ -15,7 +15,7 @@ const LibrarySong=({song, setCurrentSong, currentSong})=>{
                 <h3>{song.name}</h3>
                 <h4>{song.artist}</h4>
             </div>
-        </div>
+        </li>
     )
 }
 
