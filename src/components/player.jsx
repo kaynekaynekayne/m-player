@@ -51,14 +51,15 @@ const Player=({currentSong, setCurrentSong, isPlaying, setIsPlaying, songs})=>{
         }
     }
 
-
-
     useEffect(()=>{
         if(isPlaying){
-            audioRef.current.play();
+            const audioPromise=audioRef.current[isPlaying ? 'play' : 'pause']();
+            if(audioPromise!==undefined){
+                audioPromise.catch(console.info);
+            }
         }
     },[currentSong])
-
+    
     return(
         <div className="player">
             <div className="time-control">

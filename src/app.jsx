@@ -1,15 +1,14 @@
 import React,{useState} from 'react';
 import './styles/app.scss';
-import data from './util';
+import songsData from './data';
 import Player from './components/player';
 import Song from './components/song';
 import Library from './components/libary';
 import Navigation from './components/navigation';
 
-
 function App() {
-  
-  const [songs,setSongs]=useState(data());
+  const songs=songsData;  
+  // const [songs,setSongs]=useState(songsData);
   const [currentSong, setCurrentSong]=useState(songs[0]);
   const [isPlaying, setIsPlaying]=useState(false);
   const [openLibrary, setOpenLibrary]=useState(false);
