@@ -4,16 +4,7 @@ import { faPlay, faBackward, faForward, faPause } from "@fortawesome/free-solid-
 
 const Player=({currentSong, setCurrentSong, isPlaying, setIsPlaying, songs})=>{
 
-    const audioRef=useRef(null);
-
-    const onPlayClick=()=>{
-        setIsPlaying(prev=>!prev);
-        if(isPlaying){
-            audioRef.current.pause();
-        } else{
-            audioRef.current.play();
-        }
-    };
+    const audioRef=useRef();
 
     const [songInfo, setSongInfo]=useState({
         currentTime:0,
@@ -51,6 +42,15 @@ const Player=({currentSong, setCurrentSong, isPlaying, setIsPlaying, songs})=>{
         }
     }
 
+    const onPlayClick=()=>{
+        setIsPlaying(prev=>!prev);
+        if(isPlaying){
+            audioRef.current.pause();
+        } else{
+            audioRef.current.play();
+        }
+    };
+
     useEffect(()=>{
         if(isPlaying){
             const audioPromise=audioRef.current[isPlaying ? 'play' : 'pause']();
@@ -59,19 +59,21 @@ const Player=({currentSong, setCurrentSong, isPlaying, setIsPlaying, songs})=>{
             }
         }
     },[currentSong])
-    
+
     return(
         <div className="player">
             <div className="time-control">
-                <p>{formatTime(songInfo.currentTime)}</p>
-                <input 
+                <input
                     min={0} 
                     max={songInfo.duration || 0}
                     value={songInfo.currentTime} 
                     onChange={streamHandler}
                     type="range"
                 />
-                <p>{formatTime(songInfo.duration)}</p>
+                <div className="time-stream">
+                    <p>{formatTime(songInfo.currentTime)}</p>
+                    <p>{formatTime(songInfo.duration)}</p>
+                </div>
             </div>
             <div className="play-control">
                 <FontAwesomeIcon
