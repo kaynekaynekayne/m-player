@@ -10,7 +10,7 @@ const Navigation = memo(({setOpenLibrary}) => {
 
     return(
         <nav>
-            <h1>Player</h1>
+            <h1>Stream</h1>
             <button onClick={onOpenLibrary}>
                 <FontAwesomeIcon icon={faBars} />
             </button>

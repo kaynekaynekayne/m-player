@@ -16,7 +16,7 @@
 .library-song{
     display:flex;
     align-items: center;
-    padding:1rem 1.5rem;
+    padding:0rem 0.8rem;
     cursor:pointer;
 
     img{
@@ -34,7 +34,7 @@
             color:rgb(219, 219, 219);
         }
         img{
-            animation:spin 2.5s linear infinite;
+            animation:spin 3s linear infinite;
         }
     }
 }
@@ -113,7 +113,7 @@
             position:absolute;
             top:0;
             left:0;
-            font-size:0.9rem;
+            font-size:0.8rem;
         }
 
         h4{
