@@ -1,8 +1,8 @@
-import React from 'react';
+import React,{memo} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 
-const Navigation = ({setOpenLibrary}) => {
+const Navigation = memo(({setOpenLibrary}) => {
 
     const onOpenLibrary=()=>{
         setOpenLibrary(prev=>!prev)
@@ -16,6 +16,6 @@ const Navigation = ({setOpenLibrary}) => {
             </button>
         </nav>
     )
-};
+});
 
 export default Navigation;
