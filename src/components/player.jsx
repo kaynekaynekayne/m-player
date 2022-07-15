@@ -61,6 +61,7 @@ const Player=({currentSong, setCurrentSong, isPlaying, setIsPlaying, songs})=>{
         if(isPlaying){
             onPlaySong();
         }
+        console.log("hello from useEffect");
     },[currentSong]);
 
     const streamPercent=()=>{

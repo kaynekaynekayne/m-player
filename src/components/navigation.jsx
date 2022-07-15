@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faList } from '@fortawesome/free-solid-svg-icons';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 const Navigation = ({setOpenLibrary}) => {
 
@@ -12,7 +12,7 @@ const Navigation = ({setOpenLibrary}) => {
         <nav>
             <h1>Player</h1>
             <button onClick={onOpenLibrary}>
-                <FontAwesomeIcon icon={faList} />
+                <FontAwesomeIcon icon={faBars} />
             </button>
         </nav>
     )

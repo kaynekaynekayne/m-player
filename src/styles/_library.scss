@@ -11,9 +11,6 @@
     transform: translateX(-100%);
     transition:all 0.5s ease;
     opacity:0;
-    h2{
-        padding:1rem;
-    }
 }
 
 .library-song{
@@ -90,11 +87,6 @@
         height:100%;
         box-shadow:none;
 
-        h2{
-            opacity:0;
-            padding:2rem;
-        }
-
     }
     .library-songs{
         display:grid; 
@@ -132,7 +124,7 @@
             
             img{
                 animation:none;
-                transform: scale(1.2);
+                transform: scale(1.3);
             }
 
             h3{
