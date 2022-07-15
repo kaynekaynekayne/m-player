@@ -2,6 +2,14 @@ import { v4 as uuidv4 } from "uuid";
 
 const songsData=[
     {
+        name:"travelbag",
+        cover:"https://chillhop.com/wp-content/uploads/2021/05/1245c0271290a3196328c0cf4aaa910cd873dfe7-1024x1024.jpg",
+        artist:"mommy, Sleepy Fish",
+        audio:"https://mp3.chillhop.com/serve.php/?mp3=19058",
+        color:["#608DCE","#AABBC5"],
+        id:uuidv4(),
+    },
+    {
         name: "Beaver Creek",
         cover:
             "https://chillhop.com/wp-content/uploads/2020/09/0255e8b8c74c90d4a27c594b3452b2daafae608d-1024x1024.jpg",
@@ -34,15 +42,6 @@ const songsData=[
         artist: "Aiguille",
         audio: "https://mp3.chillhop.com/serve.php/?mp3=9148",
         color: ["#EF8EA9", "#ab417f"],
-        id: uuidv4(),
-    },
-    {
-        name: "Under the City Stars",
-        cover:
-            "https://chillhop.com/wp-content/uploads/2020/09/0255e8b8c74c90d4a27c594b3452b2daafae608d-1024x1024.jpg",
-        artist: "Aso, Middle School, Aviino",
-        audio: "https://mp3.chillhop.com/serve.php/?mp3=10074",
-        color: ["#205950", "#2ab3bf"],
         id: uuidv4(),
     },
     {
@@ -96,6 +95,15 @@ const songsData=[
         id:uuidv4()
     },
     {
+        name: "Under the City Stars",
+        cover:
+            "https://chillhop.com/wp-content/uploads/2020/09/0255e8b8c74c90d4a27c594b3452b2daafae608d-1024x1024.jpg",
+        artist: "Aso, Middle School, Aviino",
+        audio: "https://mp3.chillhop.com/serve.php/?mp3=10074",
+        color: ["#205950", "#2ab3bf"],
+        id: uuidv4(),
+    },
+    {
         name: "Daylight",
         cover:
             "https://chillhop.com/wp-content/uploads/2020/07/ef95e219a44869318b7806e9f0f794a1f9c451e4-1024x1024.jpg",
@@ -104,6 +112,23 @@ const songsData=[
         color: ["#EF8EA9", "#ab417f"],
         id: uuidv4(),
     },
+    {
+        name:"Looking In",
+        cover:"https://chillhop.com/wp-content/uploads/2021/08/af3ce13ad39d38057f00144f8a7c295877ccfec1-1024x1024.jpg",
+        artist:"Smile High, Teddy Roxpin",
+        audio:"https://mp3.chillhop.com/serve.php/?mp3=23335",
+        color:["#418890","#DA6965"],
+        id:uuidv4(),
+    },
+    {
+        name:"Leaving",
+        cover:"https://chillhop.com/wp-content/uploads/2020/07/0ca0fcf1ca26b9b75a0b6f6a16fc624593223d84-1024x1024.jpg",
+        artist:"Aso",
+        audio:"https://mp3.chillhop.com/serve.php/?mp3=7927",
+        color:["#EED1C7","#B597A1"],
+        id:uuidv4(),
+    },
+
 ];
 
 export default songsData;
