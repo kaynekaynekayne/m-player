@@ -76,6 +76,7 @@ const Player=({currentSong, setCurrentSong, isPlaying, setIsPlaying, songs})=>{
                         max={songInfo.duration || 0}
                         value={songInfo.currentTime} 
                         onChange={streamHandler}
+                        aria-label="streaming bar"
                         type="range"
                     />
                     <div 
