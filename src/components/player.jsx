@@ -36,7 +36,6 @@ const Player=({currentSong, setCurrentSong, isPlaying, setIsPlaying, songs})=>{
         return `${Math.floor(duration/60)}:${(Math.floor(duration%60)).toString().padStart(2,"0")}`
     };
 
-
     const trackBtnHandler=async(instruction)=>{
         let currentIndex=songs.findIndex(song=>song.id===currentSong.id);
         if(instruction==='skip-forward'){
@@ -46,22 +45,22 @@ const Player=({currentSong, setCurrentSong, isPlaying, setIsPlaying, songs})=>{
         }
     }
 
-    const onPlayClick=()=>{
+    const onPlayClick=async()=>{
         if(isPlaying){
-            audioRef.current.pause();
+            await audioRef.current.pause();
         } else{
-            onPlaySong();
+            await audioRef.current.play();
         }
         setIsPlaying(prev=>!prev);
     };
 
-    const onPlaySong=async()=>await audioRef.current.play();
-
     useEffect(()=>{
         if(isPlaying){
-            onPlaySong();
+            const playPromise=audioRef.current.play();
+            if(playPromise!==undefined){
+                playPromise.catch((error)=>{});
+            }
         }
-        console.log("hello from useEffect");
     },[currentSong]);
 
     const streamPercent=()=>{
