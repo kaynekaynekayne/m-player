@@ -16,7 +16,7 @@
 .library-song{
     display:flex;
     align-items: center;
-    padding:0rem 0.8rem;
+    padding:0.2rem 0.8rem;
     cursor:pointer;
 
     img{
@@ -132,7 +132,6 @@
             }
         }
     }
-
 
     *::-webkit-scrollbar {
         width:0;
