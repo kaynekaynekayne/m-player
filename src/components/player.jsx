@@ -1,6 +1,6 @@
 import React,{useRef, useState, useEffect} from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay, faBackward, faForward, faPause } from "@fortawesome/free-solid-svg-icons";
+import { faPlay, faBackward, faForward, faPause, faVolumeUp, faShuffle } from "@fortawesome/free-solid-svg-icons";
 
 const Player=({currentSong, setCurrentSong, isPlaying, setIsPlaying, songs})=>{
 
@@ -10,6 +10,7 @@ const Player=({currentSong, setCurrentSong, isPlaying, setIsPlaying, songs})=>{
         currentTime:0,
         duration:0,
     });
+    const [volume,setVolume]=useState(false);
 
     const timeUpdateHandler=()=>{
         const current=audioRef.current.currentTime;
@@ -23,6 +24,10 @@ const Player=({currentSong, setCurrentSong, isPlaying, setIsPlaying, songs})=>{
             setCurrentSong(songs[currentIndex+1 === songs.length ? 0 : currentIndex+1]);
         }
     };
+    
+    const formatTime=(duration)=>{
+        return `${Math.floor(duration/60)}:${(Math.floor(duration%60)).toString().padStart(2,"0")}`
+    };
 
     const streamHandler=(e)=>{
         audioRef.current.currentTime=e.target.value;
@@ -31,9 +36,9 @@ const Player=({currentSong, setCurrentSong, isPlaying, setIsPlaying, songs})=>{
             currentTime:e.target.value,
         })
     };
-    
-    const formatTime=(duration)=>{
-        return `${Math.floor(duration/60)}:${(Math.floor(duration%60)).toString().padStart(2,"0")}`
+
+    const streamPercent=()=>{
+        return (songInfo.currentTime / songInfo.duration) * 100 || 0;
     };
 
     const trackBtnHandler=async(instruction)=>{
@@ -54,6 +59,11 @@ const Player=({currentSong, setCurrentSong, isPlaying, setIsPlaying, songs})=>{
         setIsPlaying(prev=>!prev);
     };
 
+    const onShuffleClick=async()=>{
+        const randomIndex=Math.floor(Math.random()*(songs.length))
+        await setCurrentSong(songs[randomIndex]);
+    }
+
     useEffect(()=>{
         if(isPlaying){
             const playPromise=audioRef.current.play();
@@ -62,10 +72,6 @@ const Player=({currentSong, setCurrentSong, isPlaying, setIsPlaying, songs})=>{
             }
         }
     },[currentSong]);
-
-    const streamPercent=()=>{
-        return (songInfo.currentTime / songInfo.duration) * 100 || 0;
-    };
 
     return(
         <section className="player">
@@ -89,6 +95,11 @@ const Player=({currentSong, setCurrentSong, isPlaying, setIsPlaying, songs})=>{
                 </div>
             </div>
             <div className="play-control">
+                <FontAwesomeIcon 
+                    onClick={onShuffleClick}
+                    className="shuffle"
+                    icon={faShuffle}
+                />
                 <FontAwesomeIcon
                     onClick={()=>trackBtnHandler("skip-back")} 
                     className="skip-back" 
@@ -107,6 +118,24 @@ const Player=({currentSong, setCurrentSong, isPlaying, setIsPlaying, songs})=>{
                     size="2x" 
                     icon={faForward}
                 />
+                <div className="volume-control">
+                    <label htmlFor="volume">
+                        <FontAwesomeIcon
+                            className="volume-up"
+                            icon={faVolumeUp}
+                            onClick={()=>setVolume(prev=>!prev)}
+                        />
+                    </label>
+                    {volume && 
+                        <input
+                            min={0}
+                            max={1}
+                            step={0.01}
+                            type="range"
+                            className="slider"
+                            onChange={(e) =>audioRef.current.volume = e.target.value}
+                    />}
+                </div>
             </div>
             <audio
                 onTimeUpdate={timeUpdateHandler}

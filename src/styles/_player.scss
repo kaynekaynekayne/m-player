@@ -48,8 +48,27 @@ input[type="range"]::-webkit-slider-thumb{
     align-items: center;
     padding:1.5rem 0;
     width:19rem;
+    color: rgb(57, 57, 57);
 
     svg{
         cursor: pointer;
+    }
+
+    .volume-control{
+        display: flex;
+        flex-direction: column;
+
+        .slider {
+            width:3rem;
+            -webkit-appearance: none;
+            background: #e1e1e4; 
+        }
+        
+        .slider::-webkit-slider-thumb {
+            width: 0.8rem;
+            height: 0.8rem; 
+            background: #3e3e3e;
+            cursor: pointer;
+        }
     }
 }
